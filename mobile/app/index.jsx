@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, useColorScheme, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, useColorScheme, Image, } from 'react-native';
 import { Link } from 'expo-router';
 
 const Login = () => {
@@ -49,7 +49,7 @@ const Login = () => {
           Forgot Password?
         </Text>
         <Text style={[styles.registerText, isDarkMode && styles.darkText]}>
-          Don't have an account?
+          Don't have an account? {' '}
           <Link href="Register" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
             Register here
           </Link>
