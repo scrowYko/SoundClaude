@@ -8,8 +8,42 @@ const Login = () => {
   const colorScheme = useColorScheme();
 
   const handleLogin = () => {
-    // Add your login logic here
-    console.log(`Email: ${email}, Password: ${password}`);
+    if (!email || !password) {
+      return alert("Todos os campos devem ser preenchidos");
+    }
+
+    const formData = {email:  email, password: password};
+
+    //login with a fetch request
+    try {
+      const res = fetch("localhost:8000/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      switch (response.status) {
+        case 200:
+          alert("Usuário criado");
+          console.log(res.token)
+          break;
+        case 406:
+          alert("Preencha todos os campos");
+          break;
+        case 404:
+          alert("Email não encontrado");
+          break;
+        case 400:
+          alert("Senha incorreta");
+          break;
+
+        default:
+          alert("Erro ao se conectar com servidor");
+          break;
+      }
+    } catch (error) {}
   };
 
   const handleForgotPassword = () => {

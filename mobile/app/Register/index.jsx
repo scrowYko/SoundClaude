@@ -16,30 +16,58 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = () => {
-    console.log(
-      `Name: ${name}, Surname: ${surname}, Email: ${email}, Password: ${password}, Confirm Password: ${confirmPassword}`
-    );
+  const handleRegister = async () => {
+    //verify if the data are valid
+    if (!name || !surname || !bday || !bday || !email || !password) {
+      return alert("Todos os campos devem ser preenchidos");
+    }
+
+    const formData = {name:  name, surname: surname, bday: bday, email: email, password: password};
+
+    //register with a fetch  reques
+    try {
+      const res = await fetch("http://localhost:8000/registro", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      switch (response.status) {
+        case 201:
+          alert("Usuário criado");
+          break;
+        case 406:
+          alert("Preencha todos os campos");
+          break;
+        case 418:
+          alert("Email já cadastrado");
+          break;
+        default:
+          alert("Erro ao se conectar com servidor");
+          break;
+      }
+    } catch (error) {}
   };
 
   const autoBirthdayFormater = (text) => {
     // Remove caracteres que não são dígitos
-    const cleanedText = text.replace(/\D/g, ''); //não sei o pq funciona só funciona
-  
-    
-    let formattedText = '';
+    const cleanedText = text.replace(/\D/g, ""); //não sei o pq funciona só funciona
+
+    let formattedText = "";
     if (cleanedText.length > 0) {
       formattedText += cleanedText.substring(0, 2); // Dia
     }
     if (cleanedText.length >= 2) {
-      formattedText += '/';
+      formattedText += "/";
       formattedText += cleanedText.substring(2, 4); // Mês
     }
     if (cleanedText.length >= 4) {
-      formattedText += '/';
+      formattedText += "/";
       formattedText += cleanedText.substring(4, 8); // Ano
     }
-  
+
     setBday(formattedText);
   };
 
