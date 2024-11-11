@@ -87,6 +87,9 @@ const Login = () => {
           <Link href="Register" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
             Register here
           </Link>
+          <Link href="Perfil" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
+            Perfil
+          </Link>
         </Text>
       </View>
     </View>
