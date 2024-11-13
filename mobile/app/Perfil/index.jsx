@@ -1,17 +1,58 @@
-import React from 'react';
-import { View, Text, Image,  StyleSheet } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
 
 const ProfilePage = () => {
-  // Dados de exemplo
-  const user = {
-    name: 'John Doe',
-    profilePicture: 'https://cdn2.iconfinder.com/data/icons/squircle-ui/32/Avatar-256.png',
-  };
+  let [user, setUser] = useState("");
+  useEffect(() => {
+    try {
+      const res = fetch("http://localhost:8000/usuario/1")
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data.message);
+          console.log(user);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user.profilePicture }} style={styles.profilePicture} />
-      <Text style={styles.userName}>{user.name}</Text>
+      {user ? (
+        <>
+          {" "}
+          {user.imagem_perfil != null ? (
+            <>
+              {" "}
+              <Image
+                source={{ uri: user.imagem_perfil }}
+                style={styles.profilePicture}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <Image
+                source={{
+                  uri: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png",
+                }}
+                style={styles.profilePicture}
+              />
+            </>
+          )}
+          <Text style={styles.nome}>{user.nome}</Text>{" "}
+        </>
+      ) : (
+        <>
+          {" "}
+          <Image
+            source={{
+              uri: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png",
+            }}
+            style={styles.profilePicture}
+          />
+          <Text style={styles.nome}>Teste</Text>{" "}
+        </>
+      )}
     </View>
   );
 };
@@ -19,9 +60,9 @@ const ProfilePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#121212', // Cor de fundo escura
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#121212", // Cor de fundo escura
   },
   profilePicture: {
     width: 100,
@@ -31,8 +72,8 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#ffffff', // Cor do texto em branco
+    fontWeight: "bold",
+    color: "#ffffff", // Cor do texto em branco
   },
 });
 

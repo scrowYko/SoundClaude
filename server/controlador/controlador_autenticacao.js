@@ -51,7 +51,8 @@ const registro_funcao = async (req, res) => {
       }
       if (!bcryptjs.compareSync(senha, usuario.senha)) {
         //compare password
-        res.status(400).send("Senha incorreta");
+        return res.status(400).send("Senha incorreta");
+        
       }
       //create jwt token
       const token = jwt.sign({ nome: usuario.nome, email: usuario.email, status: usuario.status }, //payload of jwt

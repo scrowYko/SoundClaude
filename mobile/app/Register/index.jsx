@@ -26,7 +26,7 @@ const Register = () => {
 
     //register with a fetch  reques
     try {
-      const res = await fetch("http://localhost:8000/registro", {
+      const res = await fetch("http://localhost:8000/autenticacao/registro", {
         method: "POST",
         headers: {
           Accept: "application/json",

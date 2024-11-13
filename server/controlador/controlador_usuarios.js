@@ -14,7 +14,7 @@ const get_user = async (req, res) => {
         }
         const user = await User.findOne({ where: { id: id }})
         res.status(200).send({message: user})
-        return true
+        return user
     } catch (error) {
         console.log(error)
     }

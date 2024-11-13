@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, useColorScheme, Image, } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const colorScheme = useColorScheme();
 
-  const handleLogin = () => {
+  const handleLogin = async  () => {
     if (!email || !password) {
       return alert("Todos os campos devem ser preenchidos");
     }
 
-    const formData = {email:  email, password: password};
+    const formData = {email:  email, senha: password};
 
     //login with a fetch request
     try {
-      const res = fetch("localhost:8000/login", {
+      const res = await fetch("http://localhost:8000/autenticacao/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -24,10 +24,11 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
-      switch (response.status) {
+      switch (res.status) {
         case 200:
-          alert("Usuário criado");
+          alert("Usuario logado");
           console.log(res.token)
+          router.push('/Perfil')
           break;
         case 406:
           alert("Preencha todos os campos");
@@ -85,7 +86,7 @@ const Login = () => {
         <Text style={[styles.registerText, isDarkMode && styles.darkText]}>
           Don't have an account? {' '}
           <Link href="Register" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
-            Register here
+            Register here {''}
           </Link>
           <Link href="Perfil" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
             Perfil
