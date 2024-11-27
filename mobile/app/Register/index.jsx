@@ -22,7 +22,7 @@ const Register = () => {
       return alert("Todos os campos devem ser preenchidos");
     }
 
-    const formData = {name:  name, surname: surname, bday: bday, email: email, password: password};
+    const formData = {nome:  name, sobrenome: surname, dataNascimento: bday, email: email, senha: password};
 
     //register with a fetch  reques
     try {

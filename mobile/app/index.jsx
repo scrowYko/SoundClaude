@@ -24,10 +24,11 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
+      const jwt = await res.json().token
       switch (res.status) {
         case 200:
           alert("Usuario logado");
-          console.log(res.token)
+          console.log(jwt)
           router.push('/Perfil')
           break;
         case 406:
