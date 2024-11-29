@@ -64,7 +64,7 @@ const login_funcao = async (req, res) => {
     //devolver resposta com o token
     return res
       .status(200)
-      .send({ message: "Usuário logado com sucesso", token: token, user: usuario });
+      .send({ message: "Usuário logado com sucesso", token: token, id: usuario.id });
   } catch (error) {
     return res
       .status(error)

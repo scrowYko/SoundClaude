@@ -9,11 +9,11 @@ app.use(cors())
 const get_user = async (req, res) => {
     try {
         const id = req.params.id;
-        if(!id){
+        if (!id) {
             console.log('Erro ao definir usuario')
         }
-        const user = await User.findOne({ where: { id: id }})
-        res.status(200).send({message: user})
+        const user = await User.findOne({ where: { id: id } })
+        res.status(200).send({ message: user })
         return user
     } catch (error) {
         console.log(error)
@@ -22,8 +22,8 @@ const get_user = async (req, res) => {
 
 const updateImagem = async (req, res) => {
     try {
-        const email = req.body.email; 
-        const url = req.body.url; 
+        const email = req.body.email;
+        const url = req.body.url;
         if (!email || !url) {
             return res.status(400).send({ message: 'Email e URL da imagem são obrigatórios.' });
         }
@@ -40,4 +40,24 @@ const updateImagem = async (req, res) => {
     }
 }
 
-export {get_user, updateImagem}
+const updatePassword = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const senha = req.body.senha;
+        if (!email || !senha) {
+            return res.status(400).send({ message: 'Email e senha são obrigatórios.' })
+        }
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(404).send({ message: 'Usuário não encontrado.' });
+        }
+        user.senha = senha;
+        await user.save
+        res.status(200).send({ message: 'Senha atualizada com sucesso.', user });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'Erro ao atualizar a senha.' });
+    }
+}
+
+export { get_user, updateImagem, updatePassword }

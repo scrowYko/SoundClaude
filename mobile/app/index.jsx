@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, useColorScheme, Image, } from 'react-native';
-import { Link, router } from 'expo-router';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  useColorScheme,
+  Image,
+} from "react-native";
+import { Link, router } from "expo-router";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const colorScheme = useColorScheme();
 
-  const handleLogin = async  () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       return alert("Todos os campos devem ser preenchidos");
     }
 
-    const formData = {email:  email, senha: password};
+    const formData = { email: email, senha: password };
 
     //login with a fetch request
     try {
@@ -24,12 +32,16 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
-      const jwt = await res.json().token
+
+      const data = await res.json()
       switch (res.status) {
         case 200:
           alert("Usuario logado");
-          console.log(jwt)
-          router.push('/Perfil')
+          console.log(data)
+          localStorage.setItem("id", data.id);
+          let testeID = localStorage.getItem('id')
+          console.log(testeID);
+          router.push("/Home");
           break;
         case 406:
           alert("Preencha todos os campos");
@@ -50,46 +62,57 @@ const Login = () => {
 
   const handleForgotPassword = () => {
     // Add your forgot password logic here
-    console.log('Forgot password clicked');
+    console.log("Forgot password clicked");
   };
 
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
   return (
     <View style={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={[styles.background, isDarkMode && styles.darkBackground]}>
-        <Image source={{uri: 'https://i1.sndcdn.com/avatars-69H9MhsAT5XDDltu-1X6yHw-t240x240.jpg'}} style={styles.image} />
+        <Image
+          source={{
+            uri: "https://i1.sndcdn.com/avatars-69H9MhsAT5XDDltu-1X6yHw-t240x240.jpg",
+          }}
+          style={styles.image}
+        />
         <Text style={[styles.title, isDarkMode && styles.darkText]}>Login</Text>
         <TextInput
           style={[styles.input, isDarkMode && styles.darkInput]}
           placeholder="Email"
-          placeholderTextColor={isDarkMode ? '#888' : '#999'}
+          placeholderTextColor={isDarkMode ? "#888" : "#999"}
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={[styles.input, isDarkMode && styles.darkInput]}
           placeholder="Password"
-          placeholderTextColor={isDarkMode ? '#888' : '#999'}
+          placeholderTextColor={isDarkMode ? "#888" : "#999"}
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
         />
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={handleLogin}
-        >
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
-        <Text style={[styles.forgotPassword, isDarkMode && styles.darkAccent]} onPress={handleForgotPassword}>
+        <Text
+          style={[styles.forgotPassword, isDarkMode && styles.darkAccent]}
+          onPress={handleForgotPassword}
+        >
           Forgot Password?
         </Text>
         <Text style={[styles.registerText, isDarkMode && styles.darkText]}>
-          Don't have an account? {' '}
-          <Link href="Register" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
-            Register here {''}
+          Don't have an account?{" "}
+          <Link
+            href="Register"
+            style={[styles.registerLink, isDarkMode && styles.darkAccent]}
+          >
+            Register here {""}
           </Link>
-          <Link href="Perfil" style={[styles.registerLink, isDarkMode && styles.darkAccent]}>
+          <Link
+            href="Perfil"
+            style={[styles.registerLink, isDarkMode && styles.darkAccent]}
+          >
             Perfil
           </Link>
         </Text>
@@ -103,65 +126,65 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   darkContainer: {
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
   },
   background: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
   },
   darkBackground: {
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
-    color: '#000',
+    color: "#000",
   },
   darkText: {
-    color: '#fff',
+    color: "#fff",
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
     width: 250,
-    color: '#000',
+    color: "#000",
   },
   darkInput: {
-    borderColor: '#444',
-    color: '#fff',
-    backgroundColor: '#333',
+    borderColor: "#444",
+    color: "#fff",
+    backgroundColor: "#333",
   },
   loginButton: {
-    backgroundColor: '#00bf73',
+    backgroundColor: "#00bf73",
     padding: 10,
     borderRadius: 5,
     marginBottom: 5,
   },
   loginButtonText: {
     fontSize: 16,
-    color: '#ffffff',
+    color: "#ffffff",
   },
   forgotPassword: {
     fontSize: 16,
-    color: '#00bf73',
+    color: "#00bf73",
     marginBottom: 10,
   },
   darkAccent: {
-    color: '#00ff99',
+    color: "#00ff99",
   },
   registerText: {
     fontSize: 16,
     marginBottom: 10,
-    color: '#000',
+    color: "#000",
   },
   registerLink: {
     fontSize: 16,
-    color: '#00bf73',
+    color: "#00bf73",
   },
   image: {
     width: 100,
