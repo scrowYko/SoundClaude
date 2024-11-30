@@ -15,6 +15,7 @@ const ProfilePage = () => {
 
   let [password, setPassword] = useState("");
   let [confirmPassword, setConfirmPassword] = useState("");
+
   useEffect(() => {
     try {
       let id = localStorage.getItem("id");
@@ -114,63 +115,56 @@ const ProfilePage = () => {
     <View style={styles.container}>
       {user ? (
         <>
-          {" "}
           {user.imagem_perfil != null ? (
-            <>
-              {" "}
-              <Pressable onPress={pickImage}>
-                <Image
-                  source={{ uri: user.imagem_perfil }}
-                  style={styles.profilePicture}
-                />
-              </Pressable>{" "}
-            </>
+            <Pressable onPress={pickImage}>
+              <Image
+                source={{ uri: user.imagem_perfil }}
+                style={styles.profilePicture}
+              />
+            </Pressable>
           ) : (
-            <>
-              <Pressable onPress={pickImage}>
-                <Image
-                  source={{
-                    uri: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png",
-                  }}
-                  style={styles.profilePicture}
-                />
-              </Pressable>
-            </>
+            <Pressable onPress={pickImage}>
+              <Image
+                source={{
+                  uri: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png",
+                }}
+                style={styles.profilePicture}
+              />
+            </Pressable>
           )}
-          <Text style={styles.nome}>{user.nome}</Text>{" "}
-          <Text style={styles.nome}>{user.sobrenome}</Text>{" "}
-          <Text style={styles.nome}>{user.dataNascimento}</Text>
-          <Text style={styles.nome}>{user.email}</Text>
-          <View>
+          <Text style={styles.userName}>{user.nome}</Text>
+          <Text style={styles.userName}>{user.sobrenome}</Text>
+          <Text style={styles.userInfo}>{user.dataNascimento}</Text>
+          <Text style={styles.userInfo}>{user.email}</Text>
+          <View style={styles.section}>
             <TextInput
-              style={[styles.input, styles.darkInput]}
-              placeholder="Select your new password"
+              style={styles.input}
+              placeholder="Nova senha"
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
             <TextInput
-              style={[styles.input, styles.darkInput]}
-              placeholder="Password"
+              style={styles.input}
+              placeholder="Confirmar senha"
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
               secureTextEntry={true}
             />
-            <Pressable onPress={trocarSenha}>
-              <Text>Trocar senha</Text>
+            <Pressable style={styles.button} onPress={trocarSenha}>
+              <Text style={styles.buttonText}>Trocar senha</Text>
             </Pressable>
           </View>
         </>
       ) : (
         <>
-          {" "}
           <Image
             source={{
               uri: "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png",
             }}
             style={styles.profilePicture}
           />
-          <Text style={styles.nome}>Teste</Text>{" "}
+          <Text style={styles.userName}>Teste</Text>
         </>
       )}
     </View>
@@ -182,18 +176,55 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#121212", // Cor de fundo escura
+    backgroundColor: "#121212", // Fundo escuro
+    padding: 20,
   },
   profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "#FFFFFF", // Borda branca ao redor da imagem
     marginBottom: 20,
   },
   userName: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#ffffff", // Cor do texto em branco
+    color: "#FFFFFF", // Nome em branco
+    marginBottom: 5,
+  },
+  userInfo: {
+    fontSize: 16,
+    color: "#B0B0B0", // Texto de informações em cinza claro
+    marginBottom: 10,
+  },
+  input: {
+    height: 50,
+    borderColor: "#FFFFFF",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+    backgroundColor: "#1E1E1E", // Fundo do input
+    color: "#FFFFFF", // Texto do input em branco
+  },
+  button: {
+    backgroundColor: "#a80000", // Cor do botão
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#FFFFFF", // Texto do botão em branco
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  section: {
+    width: "100%",
+    marginVertical: 15,
+    alignItems: "center",
   },
 });
 

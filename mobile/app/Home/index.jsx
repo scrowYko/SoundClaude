@@ -59,7 +59,7 @@ const Home = () => {
   ];
 
   function clickPerfil(){
-    router.push("/Home");
+    router.replace("/Perfil");
   }
 
   return (
@@ -146,11 +146,11 @@ const styles = StyleSheet.create({
   searchBar: {
     flex: 1,
     height: 40,
-    backgroundColor: "#a80000",
-    borderRadius: 20,
+    backgroundColor: "#00bf73",
+    borderRadius: 5,
     paddingHorizontal: 15,
     marginHorizontal: 10,
-    color: "#FFFFFF",
+    color: "#000000",
     fontSize: 14,
   },
   sectionTitle: {

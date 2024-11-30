@@ -8,6 +8,7 @@ app.use(Express.json());
 app.use(cors())
 app.use('/autenticacao', rotas_autenticacao)
 app.use('/usuario', rotas_usuario)
+
 // const verificarTabelaUser = async () => {
 //   try {
 //     const result = await User.findOne();
