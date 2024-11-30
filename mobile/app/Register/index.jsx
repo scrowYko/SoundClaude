@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -37,6 +38,7 @@ const Register = () => {
       switch (response.status) {
         case 201:
           alert("Usuário criado");
+          router.replace('/Home')
           break;
         case 406:
           alert("Preencha todos os campos");

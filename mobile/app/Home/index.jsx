@@ -8,12 +8,12 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native"; // Certifique-se de que isso está correto
+import { useNavigation } from "@react-navigation/native"; 
 import { Link, router } from "expo-router";
 
 const Home = () => {
   const [user, setUser] = useState("");
-  const navigation = useNavigation(); // Hook de navegação do React Navigation
+  const navigation = useNavigation(); []
 
   useEffect(() => {
     try {
@@ -29,7 +29,6 @@ const Home = () => {
       console.log(error);
     }
   }, []);
-
 
   const items = [
     {
@@ -58,7 +57,7 @@ const Home = () => {
     },
   ];
 
-  function clickPerfil(){
+  function clickPerfil() {
     router.replace("/Perfil");
   }
 
@@ -69,7 +68,7 @@ const Home = () => {
           <>
             {user.imagem_perfil != null ? (
               <>
-                <Pressable onPress={() =>  clickPerfil()}>
+                <Pressable onPress={() => clickPerfil()}>
                   <Image
                     source={{ uri: user.imagem_perfil }}
                     style={styles.user_image}
@@ -78,11 +77,13 @@ const Home = () => {
               </>
             ) : (
               <>
-                <Ionicons
-                  name="person-circle-outline"
-                  size={28}
-                  color="#282828"
-                />
+                <Pressable onPress={() => clickPerfil()}>
+                  <Ionicons
+                    name="person-circle-outline"
+                    size={28}
+                    color="#282828"
+                  />
+                </Pressable>
               </>
             )}
           </>
